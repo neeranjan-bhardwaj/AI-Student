@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { GetResult } from './AI'
+import { GetResult,GetRodmap } from './AI'
 const page = () => {
   const [Data,setData]=useState("")
   const [Result,setResult]=useState()
@@ -17,8 +17,8 @@ const page = () => {
     </nav>
     <main>
       <input placeholder='Entry' value={Data} onChange={(e)=>{setData(e.target.value)}} />
-      <button onClick={()=>setResult(GetResult(Data))}>Click</button>
-      <p>{Result}</p>
+      <button onClick={async()=>{setData("");GetRodmap(Data)}}>Click</button>
+      {Result}
     </main>
     </>
   )
