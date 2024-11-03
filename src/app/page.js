@@ -1,44 +1,44 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Moon, Sun } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { RoadMap } from './AI'
+
 
 const page = () => {
-    const [DarkMode,setDarkMode]=useState(true)
-    return (
-        <div className={DarkMode?"bg-black":null}>
-            <nav className={`flex gap-72 ml-40 mt-4 font-semibold ${DarkMode?'text-white':null}`}>
-                <h1>Zero AI</h1>
-                <div className='flex gap-10'>
-                    <Link href=''>Research</Link>
-                    <Link href=''>About Us</Link>
-                    <Link href=''>Safety</Link>
-                </div>
-                <div className='flex gap-5'>
-                    <Button variant="Ghost" size="icon" onClick={()=>setDarkMode(!DarkMode)}>{DarkMode?<Moon/>:<Sun/>}</Button>
-                    <Avatar>
-                        <AvatarImage src='https://i.pinimg.com/564x/cc/84/e4/cc84e4ceaa62d62ffa9bebcc34193e58.jpg'/>
-                        <AvatarFallback>Tc</AvatarFallback>
-                    </Avatar>
-                </div>
-            </nav>
-            <header className={`flex flex-col items-center font-bold ${DarkMode?'text-white':null}`}>
-                    <h1 className='text-6xl text-center mt-28'>Get Answers. Find RoadMap <br/> Make your Way</h1>
-                    <div className='flex items-center gap-10 mt-10'>
-                        <Button><Link href='/AI'> Fuck AI </Link></Button>
-                        <Button variant="outline">Document</Button>
-                    </div>
-            </header>
-            <main className='flex flex-col items-center'>
-                <h1 className='text-4xl text-center mt-32'>Get proper detail <br/> RoadMap</h1>
-                {/* //! Chang this div to Image or img  */}
-                <div className='w-[60rem] h-[30rem] mt-5  bg-slate-500 '></div>
-            </main>
+    const [Text,setText]=useState()
+    const [Result,setResult]=useState()
+    const [Loader,setLoader]=useState(true)
+    const Generate=async()=>{
+        // setResult(Text)
+        // setResult(await RoadMap(Text));
+        await RoadMap(Text)
+        setText("");
+    }
+return (
+    <div>
+    <header className=' w-full text-white flex justify-between items-center pr-3 pl-3 pt-1'>
+        <div>
+            <img/>
+            <h1 className='font-semibold text-xl'>Fuck Me</h1>
         </div>
-    )
+        <nav className=' flex gap-5 text-lg '>
+            <Link href='/'>Home</Link>
+            <Link href='/RoadMap'>RoadMap</Link>
+            <Link href='/Progress'>Progress</Link>
+        </nav>
+    </header>
+    <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
+        <div className=' h-4/5 w-3/4  '>{Result}</div>
+        <div className=' h-12 w-96 flex gap-1 '>
+            <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />
+            <Button onClick={Generate}>Generate</Button>
+        </div>
+    </main>
+    </div>
+  )
 }
 
 export default page
