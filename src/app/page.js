@@ -4,18 +4,28 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { RoadMap } from './AI'
+import { RoadMap } from './API/AI/AI'
+
+const HomePage=()=>{
+    return <div>this is Home</div>
+}
+
+const ResultPage=()=>{
+    return <div>this is res</div>
+}
 
 
 const page = () => {
     const [Text,setText]=useState()
-    const [Result,setResult]=useState()
-    const [Loader,setLoader]=useState(true)
+    const [Results,setResults]=useState()
+    const [Loader,setLoader]=useState(false)
+    const [Home,setHome]=useState(true)
     const Generate=async()=>{
-        // setResult(Text)
-        // setResult(await RoadMap(Text));
-        await RoadMap(Text)
+        const Chat=Text
         setText("");
+        setHome(false)
+        setLoader(!Loader)
+        setResults(await RoadMap(Chat))
     }
 return (
     <div>
@@ -31,7 +41,10 @@ return (
         </nav>
     </header>
     <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
-        <div className=' h-4/5 w-3/4  '>{Result}</div>
+        <div className=' h-4/5 w-3/4 '>
+            {Home?<HomePage/>:null}
+            {Loader?"Loading":<ResultPage/>}
+        </div>
         <div className=' h-12 w-96 flex gap-1 '>
             <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />
             <Button onClick={Generate}>Generate</Button>
