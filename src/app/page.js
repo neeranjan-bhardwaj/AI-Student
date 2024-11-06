@@ -24,17 +24,16 @@ const ResultPage=(Results)=>{
     return(
         Results.map(e=>{
             return(
-                <div className='w-full h-full'>
-                    <h1>{e.Level}</h1>
-                    <ul>
+                <div className='w-full h-full pt-5'>
+                    <h1 className='font-semibold text-3xl text-center'>{e.Level}</h1>
+                    <ul className='flex gap-3 flex-col ml-10 mt-10 '>
                         {e.Chapter.map(e=>{return(
                             <>
-                            <li>{e.Topic}</li>
-                            <p>{e.Explanation}</p>
+                            <li>{e.Topic} : {e.Explanation}</li>
                             </>
                         )})}
                     </ul>
-                    <Link href={e.Resource}>Resource</Link>
+                    <Link href={e.Resource} className='mt-3 ml-10 font-semibold'>Resource</Link>
                 </div>
             )
         })
@@ -45,18 +44,18 @@ const ResultPage=(Results)=>{
 const page = () => {
     const [Text,setText]=useState()
     const [Results,setResults]=useState([])
-    const [Loader,setLoader]=useState(true)
+    const [Loader,setLoader]=useState(false)
     const [Home,setHome]=useState(true)
     const Generate=async()=>{
         const Chat=Text
         setText("");
         setHome(false)
-        setLoader(!Loader)
+        setLoader(true)
         const Data=await RoadMap(Chat)
         const cleanedData = Data.replace(/```json/g, "").replace(/```/g, "").trim(); //* trim the response to get only json and replace unwanted staff   
         const JsonResponse=await JSON.parse(cleanedData)
         setResults(JsonResponse)
-        setLoader(!Loader)
+        setLoader(false)
     }
 return (
     <div>
@@ -73,8 +72,7 @@ return (
     </header>
     <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
         <div className=' h-5/6 w-full overflow-x-auto '>
-            {/* {Home?HomePage():Loader?"Loading":ResultPage(Results)} */}
-            {ResultPage(Results)}
+            {Home?HomePage():Loader?"Loading":ResultPage(Results)}                         
         </div>
         <div className=' h-12 w-96 flex gap-1 '>
             <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />
