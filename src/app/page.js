@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { RoadMap } from './API/AI/AI'
+import { RoadMap } from './AI'
 
 const HomePage=()=>{
     return(
@@ -27,7 +27,7 @@ const ResultPage=(Results)=>{
                 <div className='w-full h-full pt-5'>
                     <h1 className='font-semibold text-3xl text-center'>{e.Level}</h1>
                     <ul className='flex gap-3 flex-col ml-10 mt-10 '>
-                        {e.Chapter.map(e=>{return(
+                        {e.Chapters.map(e=>{return(
                             <>
                             <li>{e.Topic} : {e.Explanation}</li>
                             </>
@@ -50,12 +50,12 @@ const page = () => {
         const Chat=Text
         setText("");
         setHome(false)
-        setLoader(true)
         const Data=await RoadMap(Chat)
+        // setLoader(true)
         const cleanedData = Data.replace(/```json/g, "").replace(/```/g, "").trim(); //* trim the response to get only json and replace unwanted staff   
         const JsonResponse=await JSON.parse(cleanedData)
         setResults(JsonResponse)
-        setLoader(false)
+        // setLoader(false)
     }
 return (
     <div>
@@ -72,7 +72,8 @@ return (
     </header>
     <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
         <div className=' h-5/6 w-full overflow-x-auto '>
-            {Home?HomePage():Loader?"Loading":ResultPage(Results)}                         
+            {/* {Home?HomePage():Loader?"Loading":ResultPage(Results)}                          */}
+            {Results?ResultPage(Results):"loding"}
         </div>
         <div className=' h-12 w-96 flex gap-1 '>
             <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />

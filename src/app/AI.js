@@ -1,11 +1,10 @@
 "use server"
 
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai'
-import { connection } from '../Lib/Connect'
-import Schema from '../schema/AI'
 
 const AI=new GoogleGenerativeAI(process.env.API)
-const Model=AI.getGenerativeModel({ model: "gemini-1.5-flash",tools:[{codeExecution:{}}] })
+const Model=AI.getGenerativeModel({ model: "gemini-1.5-pro",tools:[{codeExecution:{}}] })
+let Map;
 
 export async function RoadMap(Topic) {
     try{
@@ -25,6 +24,8 @@ export async function RoadMap(Topic) {
         const Message=await chat.sendMessage(Topic) //* send message to model Chat 
         const Response= await Message.response.text() //* Get response in txt
 
+        // Map=Response;
+        console.log(Response)
         return Response
     }catch(err){
         console.log(err)
@@ -32,29 +33,8 @@ export async function RoadMap(Topic) {
     
 }
 
-export async function Teacher(Text) { //! Can work with PDF need to find way to Check PDF existed or not
-    if(!Text)throw Error("Can not find File")
-    const prompt=``
-    const History=[{
-        role:'user',
-        parts:[{text:prompt}]
-    }]
-    const Chat=Model.startChat({
-        history:History
-    })
-    const Message=await Chat.sendMessage(Text)
-    const Response=await Message.response.text()
-
-    History.push(
-        {
-            role:"user",
-            part:[{text:Response}]
-        },
-        {
-            role:"model",
-            part:[{text:Response}]
-        }
-    )
+export async function Que() { //! Can work with PDF need to find way to Check PDF existed or not
+    
 
     return Response
 }
