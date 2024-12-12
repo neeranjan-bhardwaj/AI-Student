@@ -1,85 +1,44 @@
-"use client"
-
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import React from 'react'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { RoadMap } from './AI'
-
-const HomePage=()=>{
-    return(
-        <div className='h-full w-full flex flex-col gap-5 justify-center items-center'>
-            <h1 className='font-bold text-4xl '>Start Your Journey</h1>
-            <span className='flex gap-10'>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-            </span>
-        </div>
-    )
-}
-
-const ResultPage=(Results)=>{
-    return(
-        Results.map(e=>{
-            return(
-                <div className='w-full h-full pt-5'>
-                    <h1 className='font-semibold text-3xl text-center'>{e.Level}</h1>
-                    <ul className='flex gap-3 flex-col ml-10 mt-10 '>
-                        {e.Chapters.map(e=>{return(
-                            <>
-                            <li>{e.Topic} : {e.Explanation}</li>
-                            </>
-                        )})}
-                    </ul>
-                    <Link href={e.Resource} className='mt-3 ml-10 font-semibold'>Resource</Link>
-                </div>
-            )
-        })
-    )
-}
-
 
 const page = () => {
-    const [Text,setText]=useState()
-    const [Results,setResults]=useState([])
-    const [Loader,setLoader]=useState(false)
-    const [Home,setHome]=useState(true)
-    const Generate=async()=>{
-        const Chat=Text
-        setText("");
-        setHome(false)
-        const Data=await RoadMap(Chat)
-        // setLoader(true)
-        const cleanedData = Data.replace(/```json/g, "").replace(/```/g, "").trim(); //* trim the response to get only json and replace unwanted staff   
-        const JsonResponse=await JSON.parse(cleanedData)
-        setResults(JsonResponse)
-        // setLoader(false)
-    }
-return (
-    <div>
-    <header className=' w-full text-white flex justify-between items-center pr-3 pl-3 pt-1'>
-        <div>
-            <img/>
-            <h1 className='font-semibold text-xl'>Fuck Me</h1>
+  return (
+    <div className="bg-black text-white min-h-screen">
+      {/* Navbar */}
+      <div className='w-[70rem] h-96 ml-24 rounded-3xl absolute top-[-12rem] bg-gradient-to-b from-[#0c0e2c61] to-[#4147b371] '></div>
+      <nav className="flex justify-between items-center p-4">
+        <div className="text-xl font-bold">Smart AI</div>
+        <div className="flex space-x-8 z-50">
+          <Link href="/" className="hover:text-gray-400">
+            Home
+          </Link>
+          <Link href="/about" className="hover:text-gray-400">
+            About Us
+          </Link>
+          <Link href="/Smart-AI" className="hover:text-gray-400">
+            Smart AI
+          </Link>
         </div>
-        <nav className=' flex gap-5 text-lg '>
-            <Link href='/'>Home</Link>
-            <Link href='/RoadMap'>RoadMap</Link>
-            <Link href='/Progress'>Progress</Link>
-        </nav>
-    </header>
-    <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
-        <div className=' h-5/6 w-full overflow-x-auto '>
-            {/* {Home?HomePage():Loader?"Loading":ResultPage(Results)}                          */}
-            {Results?ResultPage(Results):"loding"}
+      </nav>
+
+      {/* Hero Section */}
+      <div className="flex flex-col items-center justify-center text-center mt-40">
+        <h1 className="text-6xl font-bold mb-4">
+          Welcome To <span className="text-blue-500">SmartAI</span>
+        </h1>
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6">Welcome To</h2>
+        <p className="text-gray-400 max-w-xl mx-auto mb-8">
+          iaufghf iyuogeifgyuocveruiyogfer87tyferiyugveriuov eiurohv hu89oer
+        </p>
+        <div className="flex space-x-4">
+          <Link href="/Smart-AI" className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+            Smart AI
+          </Link>
+          <Link href="/https://github.com/neeranjan-bhardwaj/AI-Student" className="px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700">
+            Document
+          </Link>
         </div>
-        <div className=' h-12 w-96 flex gap-1 '>
-            <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />
-            <Button onClick={Generate}>Generate</Button>
-        </div>
-    </main>
+      </div>
     </div>
   )
 }
