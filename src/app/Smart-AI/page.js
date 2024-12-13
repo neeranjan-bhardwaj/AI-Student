@@ -1,24 +1,8 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { RoadMap } from '../AI'
-
-const HomePage=()=>{
-    return(
-        <div className='h-full w-full flex flex-col gap-5 justify-center items-center'>
-            <h1 className='font-bold text-4xl '>Start Your Journey</h1>
-            <span className='flex gap-10'>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-                <div className='w-28 h-36 border-2 border-black'></div>
-            </span>
-        </div>
-    )
-}
 
 const ResultPage=(Results)=>{
     return(
@@ -58,29 +42,34 @@ const page = () => {
         // setLoader(false)
     }
 return (
-    <div>
-    <header className=' w-full text-white flex justify-between items-center pr-3 pl-3 pt-1'>
-        <div>
-            <img/>
-            <h1 className='font-semibold text-xl'>Fuck Me</h1>
-        </div>
-        <nav className=' flex gap-5 text-lg '>
-            <Link href='/'>Home</Link>
-            <Link href='/RoadMap'>RoadMap</Link>
-            <Link href='/Progress'>Progress</Link>
-        </nav>
-    </header>
-    <main className=' flex flex-col justify-center items-center gap-2 h-[38rem] text-white '>
-        <div className=' h-5/6 w-full overflow-x-auto '>
-            {/* {Home?HomePage():Loader?"Loading":ResultPage(Results)}                          */}
-            {Results?ResultPage(Results):"loding"}
-        </div>
-        <div className=' h-12 w-96 flex gap-1 '>
-            <Input type='text' placeholder='What you want learn today?' value={Text} onChange={(e)=>{setText(e.target.value)}} className='text-black' />
-            <Button onClick={Generate}>Generate</Button>
-        </div>
-    </main>
+    <div className="bg-black text-white min-h-screen">
+    {/* Navbar */}
+    <nav className="flex justify-between items-center p-5">
+      <h1 className="text-2xl font-bold">Smart AI</h1>
+      <div className="space-x-5">
+        <Link href="/" className="hover:text-gray-400">Home</Link>
+        <Link href="/about" className="hover:text-gray-400">About Us</Link>
+        <Link href="/Smart-AI" className="hover:text-gray-400">Smart AI</Link>
+      </div>
+    </nav>
+
+    {/* Content Section */}
+    <div className="flex flex-col items-center justify-center py-20 space-y-5">
+      <div className="bg-gray-300 text-black w-3/4 md:w-1/2 p-10 rounded-md shadow-md">
+        <h2 className="text-center text-xl">Write some things, anything</h2>
+      </div>
+      <div className="flex items-center space-x-3">
+        <input
+          type="text"
+          placeholder="What You Want to Learn"
+          className="p-2 w-64 bg-gray-300 text-black rounded-md shadow-md focus:outline-none"/>
+        <button
+          className="bg-gray-600 text-white px-5 py-2 rounded-md shadow-md hover:bg-gray-700">
+          Generate
+        </button>
+      </div>
     </div>
+  </div>
   )
 }
 

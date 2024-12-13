@@ -1,6 +1,7 @@
 "use server"
 
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai'
+import { NextResponse } from 'next/server'
 
 const AI=new GoogleGenerativeAI(process.env.API)
 const Model=AI.getGenerativeModel({ model: "gemini-1.5-pro",tools:[{codeExecution:{}}] })
@@ -24,17 +25,12 @@ export async function RoadMap(Topic) {
         const Message=await chat.sendMessage(Topic) //* send message to model Chat 
         const Response= await Message.response.text() //* Get response in txt
 
-        // Map=Response;
-        console.log(Response)
-        return Response
+        return NextResponse.json({
+            status:200,
+            data:Response
+        })
     }catch(err){
         console.log(err)
     }
     
-}
-
-export async function Que() { //! Can work with PDF need to find way to Check PDF existed or not
-    
-
-    return Response
 }
