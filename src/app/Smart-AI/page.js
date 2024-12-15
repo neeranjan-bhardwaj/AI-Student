@@ -36,7 +36,7 @@ const page = () => {
         setHome(false)
         const Data=await RoadMap(Chat)
         // setLoader(true)
-        const cleanedData = Data.replace(/```json/g, "").replace(/```/g, "").trim(); //* trim the response to get only json and replace unwanted staff   
+        const cleanedData = await Data.replace(/```json/, "").replace(/```/g, "").trim();        console.log(cleanedData)
         const JsonResponse=await JSON.parse(cleanedData)
         setResults(JsonResponse)
         // setLoader(false)
@@ -55,22 +55,22 @@ return (
 
     {/* Content Section */}
     <div className="flex flex-col items-center justify-center py-20 space-y-5">
-      <div className="bg-gray-300 text-black w-3/4 md:w-1/2 p-10 rounded-md shadow-md">
-        <h2 className="text-center text-xl">Write some things, anything</h2>
+      <div className="bg-gray-300 text-black p-10 rounded-md shadow-md">
+        {ResultPage(Results)}
       </div>
       <div className="flex items-center space-x-3">
         <input
           type="text"
           placeholder="What You Want to Learn"
-          className="p-2 w-64 bg-gray-300 text-black rounded-md shadow-md focus:outline-none"/>
+          className="p-2 w-64 bg-gray-300 text-black rounded-md shadow-md focus:outline-none" value={Text} onChange={(e)=>setText(e.target.value)}/>
         <button
-          className="bg-gray-600 text-white px-5 py-2 rounded-md shadow-md hover:bg-gray-700">
+          className="bg-gray-600 text-white px-5 py-2 rounded-md shadow-md hover:bg-gray-700" onClick={Generate}>
           Generate
         </button>
       </div>
     </div>
   </div>
-  )
+)
 }
 
 export default page
